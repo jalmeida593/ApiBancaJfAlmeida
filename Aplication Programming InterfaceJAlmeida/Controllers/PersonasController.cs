@@ -81,11 +81,11 @@ namespace Aplication_Programming_InterfaceJAlmeida.Controllers
         /// <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Persona_cliente))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Persona))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorEntity))]
-        public ActionResult<PersonaEntity> CreatePersona([FromBody] Persona_cliente personacreate)
+        public ActionResult<PersonaEntity> CreatePersona([FromBody] PersonaEntity personacreate)
         {
-            if (personacreate.persona.identificacion.Length == 10)
+            if (personacreate.identificacion.Length == 10)
             {
                 try
                 {
@@ -129,9 +129,9 @@ namespace Aplication_Programming_InterfaceJAlmeida.Controllers
         /// <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
 
         [HttpPut("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Persona_cliente))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PersonaEntity))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorEntity))]
-        public ActionResult<PersonaEntity> UpdatePersona(int Id, [FromBody] Persona_cliente personacreate)
+        public ActionResult<PersonaEntity> UpdatePersona(int Id, [FromBody] PersonaEntity personacreate)
         {
             if (Id > 0)
             {
@@ -175,7 +175,7 @@ namespace Aplication_Programming_InterfaceJAlmeida.Controllers
         /// <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
 
         [HttpDelete("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Persona_cliente))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PersonaEntity))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorEntity))]
         public ActionResult<status> DeletePersona(int Id)
         {

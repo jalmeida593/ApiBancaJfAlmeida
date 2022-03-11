@@ -5,9 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aplication_Programming_InterfaceJAlmeida.Entities
 {
-    [Keyless]
-
-    public class PersonaEntity
+    public class Reporte
     {
         [Column("idPersona")]
         public int ? idPersona { get; set; }
@@ -49,9 +47,5 @@ namespace Aplication_Programming_InterfaceJAlmeida.Entities
         public PersonaEntity Persona { get; set; }
     }
     */
-    public class status
-    {
-        public string statuscode { get; set; }
-        public string message { get; set; }
-    }
+   
 }

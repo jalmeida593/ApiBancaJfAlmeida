@@ -7,8 +7,9 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services
     public interface IPersonasService
     {
         PersonaEntity GetPersonas(string identificacion);
-        PersonaEntity CreatePersonas(Persona_cliente persona);
-        PersonaEntity UpdatePersonas(int id, Persona_cliente persona);
+        PersonaEntity CreatePersonas(PersonaEntity persona);
+        PersonaEntity UpdatePersonas(int id, PersonaEntity persona);
         status DeletePersonas(int id);
+        Reporte Getreporte(string cedula);
     }
 }

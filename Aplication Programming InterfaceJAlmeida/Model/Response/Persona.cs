@@ -1,36 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aplication_Programming_InterfaceJAlmeida.Model.Response;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aplication_Programming_InterfaceJAlmeida.Model
 {
     [Keyless]
-    public class Persona_cliente
-    {
-
-        public int idCliente { get; set; }
-        public int idPersona { get; set; }
-        public persona persona { get; set; }
-        public cliente cliente { get; set; }
-    }
-    public class cliente
-    {
-        [Key]
-        [Column("idCliente")]
-        public int? idCliente { get; set; }
-
-        [Column("contraseña")]
-        public string? contraseña { get; set; }
-
-        [Column("estado")]
-        public int? estado { get; set; }
-        public int? idPersona { get; set; }
-    }
-    public class persona
+    public class Persona
     {
         [Key]
         [Column("idPersona")]
-        public int? idPersona { get; set; }
+        public int idPersona { get; set; }
 
         [Column("identificacion")]
         public string? identificacion { get; set; }
@@ -52,6 +32,7 @@ namespace Aplication_Programming_InterfaceJAlmeida.Model
 
         [Column("telefono")]
         public string? telefono { get; set; }
-        public int? idCliente { get; set; }
     }
+    
+   
 }

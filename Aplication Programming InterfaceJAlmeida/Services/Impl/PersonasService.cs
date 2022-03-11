@@ -2,6 +2,7 @@
 using Aplication_Programming_InterfaceJAlmeida.Mappers;
 using Aplication_Programming_InterfaceJAlmeida.Model;
 using Aplication_Programming_InterfaceJAlmeida.Model.Request;
+using Aplication_Programming_InterfaceJAlmeida.Model.Response;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,19 +25,21 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services.Impl
 
         public PersonaEntity GetPersonas(string identificacion)
         {
-            Persona_cliente persona = new Persona_cliente();
+            Cliente client = new Cliente();
             PersonaEntity personaEntity = new PersonaEntity();
             if (validaCedula(identificacion))
             {
                 try
                 {
-                    persona = _bancaDbContext.persona.Where(x => x.persona.identificacion == identificacion).FirstOrDefault();
+                    var persona = _bancaDbContext.persona.Where(x => x.identificacion == identificacion).FirstOrDefault();
+                    var cliente = _bancaDbContext.cliente.Where(y => y.idPersona == persona.idPersona).FirstOrDefault();
                     if (persona != null)
                     {
                         personaEntity = PersonaMapper.GetPersona(persona);
                         personaEntity.status = new status();
                         personaEntity.status.statuscode = "Ok";
                         personaEntity.status.message = "Extracción Correcta";
+                        personaEntity.cliente = cliente;
                     }
                     else
                     {
@@ -66,23 +69,42 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services.Impl
             return true;
         }
 
-        public PersonaEntity CreatePersonas(Persona_cliente personacreate)
+        public PersonaEntity CreatePersonas(PersonaEntity personacreate)
         {
-            Persona_cliente persona = new Persona_cliente();
+            Persona persona = new Persona();
+            Cliente client = new Cliente();
             PersonaEntity personaEntity = new PersonaEntity();
 
 
-            if (validaCedula(personacreate.persona.identificacion))
+            if (validaCedula(personacreate.identificacion))
             {
                 try
                 {
-                    persona = _bancaDbContext.persona.Where(x => x.persona.identificacion == personacreate.persona.identificacion).FirstOrDefault();
+                    persona = _bancaDbContext.persona.Where(x => x.identificacion == personacreate.identificacion).FirstOrDefault();
                     if (persona == null)
                     {
-                        _bancaDbContext.Add(personacreate);
+                        persona = new Persona();
+                        persona.identificacion = personacreate.identificacion;
+                        persona.nombre = personacreate.nombre;
+                        persona.apellido = personacreate.apellido;
+                        persona.genero = personacreate.genero;
+                        persona.fechaNacimiento = personacreate.fechaNacimiento;
+                        persona.direccion = personacreate.direccion;
+                        persona.telefono = personacreate.telefono;
+                        _bancaDbContext.Add(persona);
                         _bancaDbContext.SaveChanges();
-                        persona = _bancaDbContext.persona.Where(x => x.persona.identificacion == personacreate.persona.identificacion).FirstOrDefault();
+
+                        client= _bancaDbContext.cliente.Where(x => x.idPersona == persona.idPersona).FirstOrDefault();
+                        client = new Cliente();
+                        client.contraseña = personacreate.cliente.contraseña;
+                        client.idPersona = persona.idPersona;
+                        client.estado = 1;
+                        _bancaDbContext.Add(client);
+                        _bancaDbContext.SaveChanges();
+                        persona = _bancaDbContext.persona.Where(x => x.identificacion == personacreate.identificacion).FirstOrDefault();
                         personaEntity = PersonaMapper.GetPersona(persona);
+                        personaEntity.cliente = new Cliente();
+                        personaEntity.cliente = _bancaDbContext.cliente.Where(x => x.idPersona == persona.idPersona).FirstOrDefault();
                         personaEntity.status = new status();
                         personaEntity.status.statuscode = "Ok";
                         personaEntity.status.message = "Insertado Con Exito";
@@ -103,25 +125,39 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services.Impl
             return personaEntity;
         }
 
-        public PersonaEntity UpdatePersonas(int id, Persona_cliente personaupdate)
+        public PersonaEntity UpdatePersonas(int id, PersonaEntity personaupdate)
         {
-            Persona_cliente persona = new Persona_cliente();
+            Persona persona = new Persona();
+            Cliente client = new Cliente();
             PersonaEntity personaEntity = new PersonaEntity();
-
             try
             {
-
-                var persona1 = _bancaDbContext.persona.Where(x => x.idPersona == id).FirstOrDefault();
-                if (persona != null && validaCedula(personaupdate.persona.identificacion))
+                persona = _bancaDbContext.persona.Where(x => x.idPersona == id).FirstOrDefault();
+                if (persona != null && validaCedula(personaupdate.identificacion))
                 {
-                    _bancaDbContext.Entry(persona).State = EntityState.Detached;
-                    persona = mapper.Map(personaupdate, persona1);
+                    persona.identificacion = personaupdate.identificacion;
+                    persona.nombre = personaupdate.nombre;
+                    persona.apellido = personaupdate.apellido;
+                    persona.genero = personaupdate.genero;
+                    persona.fechaNacimiento = personaupdate.fechaNacimiento;
+                    persona.direccion = personaupdate.direccion;
+                    persona.telefono = personaupdate.telefono;
+
+                    _bancaDbContext.Update(persona);
                     _bancaDbContext.SaveChanges();
+
+                    persona = _bancaDbContext.persona.Where(x => x.idPersona == id).FirstOrDefault();
+                    client.contraseña = personaupdate.cliente.contraseña;
+                    client.idPersona = persona.idPersona;
+                    client.estado = 1;
                     personaEntity = PersonaMapper.GetPersona(persona);
+                    _bancaDbContext.Update(client);
+                    _bancaDbContext.SaveChanges();
                     personaEntity.status = new status();
                     personaEntity.status.statuscode = "Ok";
                     personaEntity.status.message = "Actualizado Con Exito";
-
+                    personaEntity.cliente = new Cliente();
+                    personaEntity.cliente = _bancaDbContext.cliente.Where(x => x.idPersona == persona.idPersona).FirstOrDefault();
                 }
                 else
                 {
@@ -141,8 +177,11 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services.Impl
         {
             status status = new status();
             var persona = _bancaDbContext.persona.FirstOrDefault(x => x.idPersona == i);
-            if (persona != null)
+            var client = _bancaDbContext.cliente.FirstOrDefault(x => x.idPersona == i);
+            if (persona != null&& client!=null)
             {
+                _bancaDbContext.Remove(client);
+                _bancaDbContext.SaveChanges();
                 _bancaDbContext.Remove(persona);
                 _bancaDbContext.SaveChanges();
                 status.statuscode = "Ok";
@@ -153,7 +192,12 @@ namespace Aplication_Programming_InterfaceJAlmeida.Services.Impl
                 status.statuscode = "Error";
                 status.message = "Persona No esta Registrada!";
             }
-            return status;  
+            return status;
+        }
+
+        public Reporte Getreporte(string cedula)
+        {
+            throw new NotImplementedException();
         }
     }
 

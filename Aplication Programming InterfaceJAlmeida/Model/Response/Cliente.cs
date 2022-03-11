@@ -8,16 +8,13 @@ namespace Aplication_Programming_InterfaceJAlmeida.Model.Response
     public class Cliente
     {
         [Key]
-        [Column("idCliente")]
-        public int ? idCliente { get; set; }
+        public int idCliente { get; set; }
 
-        [Column("contraseña")]
-        public string ? contraseña { get; set; }
+        public string contraseña { get; set; }
 
-        [Column("estado")]
-        public int ? estado { get; set; }
+        public int estado { get; set; }
 
-        [Column("idPersona")]
-        public int ? idPersona { get; set; }
+        public int idPersona { get; set; }
+
     }
 }

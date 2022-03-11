@@ -23,6 +23,60 @@
             <response code="200">Entidad con el resultado de la consulta</response>
             <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
         </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.CuentaController.CreatePersona(Aplication_Programming_InterfaceJAlmeida.Model.CuentasCliente)">
+            <summary>
+            Inserción de los datos de la cuenta de la persona.
+            </summary>
+            <param name="CuentasCliente">Entidad con los datos de la cuenta a crear</param>
+            <returns>Entidad resultante de la consulta</returns>
+            <response code="200">Entidad con el resultado de la consulta</response>
+            <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.CuentaController.UpdatePersona(System.Int32,Aplication_Programming_InterfaceJAlmeida.Model.CuentasCliente)">
+            <summary>
+            Actualización de los datos de cuenta de la persona.
+            </summary>
+            <param name="cuentaupdate">Entidad con los datos de la persona a actualizar:</param>
+            <returns>Entidad resultante de la consulta</returns>
+            <response code="200">Entidad con el resultado de la consulta</response>
+            <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.CuentaController.DeletePersona(System.Int32)">
+            <summary>
+            Eliminación de los datos de la cuenta de la persona.
+            </summary>
+            <returns>Entidad resultante de la consulta</returns>
+            <response code="200">Entidad con el resultado de la consulta</response>
+            <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
+        <member name="T:Aplication_Programming_InterfaceJAlmeida.Controllers.MovimientosController">
+            <summary>
+            Controlador para Cuentas de Clientes.
+            </summary>
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.MovimientosController.#ctor(Aplication_Programming_InterfaceJAlmeida.Services.IMovimientosService)">
+            <summary>
+            Constructor Controlador.
+            </summary>
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.MovimientosController.GetMovimientos(System.Int32)">
+            <summary>
+            Obtener información sobre las cuentas de un cliente ingresando el número de cédula.
+            </summary>
+            <param name="identificacion">Número de identificación de la persona</param>
+            <returns>Entidad resultante de la consulta</returns>
+            <response code="200">Entidad con el resultado de la consulta</response>
+            <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.MovimientosController.CreateMovimientos(Aplication_Programming_InterfaceJAlmeida.Model.Movimientos)">
+            <summary>
+            Inserción de los datos de cuenta de la persona.
+            </summary>
+            <param name="movimientos">Entidad para el manejo de movimientos</param>
+            <returns>Entidad resultante de la consulta</returns>
+            <response code="200">Entidad con el resultado de la consulta</response>
+            <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
         <member name="T:Aplication_Programming_InterfaceJAlmeida.Controllers.PersonasController">
             <summary>
             Controlador para Personas.
@@ -42,7 +96,7 @@
             <response code="200">Entidad con el resultado de la consulta</response>
             <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
         </member>
-        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.PersonasController.CreatePersona(Aplication_Programming_InterfaceJAlmeida.Model.Persona_cliente)">
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.PersonasController.CreatePersona(Aplication_Programming_InterfaceJAlmeida.Entities.PersonaEntity)">
             <summary>
             Inserción de los datos de la persona.
             </summary>
@@ -51,7 +105,7 @@
             <response code="200">Entidad con el resultado de la consulta</response>
             <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
         </member>
-        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.PersonasController.UpdatePersona(System.Int32,Aplication_Programming_InterfaceJAlmeida.Model.Persona_cliente)">
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.PersonasController.UpdatePersona(System.Int32,Aplication_Programming_InterfaceJAlmeida.Entities.PersonaEntity)">
             <summary>
             Actualización de los datos de la persona.
             </summary>
@@ -67,6 +121,16 @@
             <returns>Entidad resultante de la consulta</returns>
             <response code="200">Entidad con el resultado de la consulta</response>
             <response code="400">Mensaje de error al tratar de realizar la consulta</response>  
+        </member>
+        <member name="T:Aplication_Programming_InterfaceJAlmeida.Controllers.ReporteController">
+            <summary>
+            Controlador para Personas.
+            </summary>
+        </member>
+        <member name="M:Aplication_Programming_InterfaceJAlmeida.Controllers.ReporteController.#ctor(Aplication_Programming_InterfaceJAlmeida.Services.IPersonasService)">
+            <summary>
+            Constructor Controlador.
+            </summary>
         </member>
     </members>
 </doc>

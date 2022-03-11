@@ -69,10 +69,13 @@ namespace Aplication_Programming_InterfaceJAlmeida
             builder.Services.AddDbContext<BancaDbContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("bancaDb"));
                 options.EnableSensitiveDataLogging();
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
             );
 
             builder.Services.AddTransient<IPersonasService, PersonasService>();
+            builder.Services.AddTransient<ICuentasService, CuentaService>();
+            builder.Services.AddTransient<IMovimientosService, MovimientosService>();
         }
 
         private static void Configure(WebApplication app)

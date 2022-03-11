@@ -11,18 +11,26 @@ namespace Aplication_Programming_InterfaceJAlmeida.Model
         {
 
         }
-        public DbSet<Cliente> clientes { get; set; }
-        public DbSet<CuentasCliente> cuentasclientes { get; set; }
-        public DbSet<Movimientos> movimientosc { get; set; }
-        public DbSet<Persona_cliente> persona { get; set; }
+        public DbSet<Cliente> cliente { get; set; }
+        public DbSet<CuentasCliente> cuentascliente { get; set; }
+        public DbSet<Movimientos> movimientos { get; set; }
+        public DbSet<Persona> persona { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Persona_cliente>().HasKey(x => new { x.idPersona, x.idCliente });
 
             modelBuilder.Entity<Cliente>()
                .HasKey(x => new { x.idCliente });
+            
+            modelBuilder.Entity<Persona>()
+              .HasKey(x => new { x.idPersona });
+
+            modelBuilder.Entity<CuentasCliente>()
+             .HasKey(x => new { x.idCuentas });
+
+            modelBuilder.Entity<Movimientos>()
+            .HasKey(x => new { x.idMovimientos });
 
             base.OnModelCreating(modelBuilder);
         }
